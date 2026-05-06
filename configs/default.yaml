@@ -1,0 +1,35 @@
+# FinAgent-RAG Default Configuration
+# See Table 2 in the paper for parameter descriptions.
+
+model:
+  llm_backbone: "deepseek-v3"
+  embedding_model: "bge-base-en-v1.5"
+  embedding_dim: 768
+
+pipeline:
+  max_iterations: 3
+  confidence_threshold: 0.8
+  top_k_passages: 5
+  evidence_buffer_capacity: 15
+
+retrieval:
+  chunk_size: 512
+  chunk_overlap: 64
+  index_type: "faiss_flat"  # faiss_flat | faiss_ivf
+
+reasoning:
+  hybrid_weight_alpha: 0.3  # CoT weight in hybrid scoring
+  recency_weight_beta: 0.2
+  max_output_tokens: 1024
+  temperature: 0  # greedy decoding
+
+router:
+  enabled: true
+  model_type: "lightgbm"
+  n_estimators: 50
+  max_depth: 4
+  threshold: 0.5
+
+evaluation:
+  tolerance: 0.01  # 1% tolerance for execution accuracy
+  bootstrap_iterations: 10000
